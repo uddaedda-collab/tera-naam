@@ -340,18 +340,22 @@ function ResultScreen({ result, resultRef, onShare, onDownload, onReset }) {
           </p>
           
           {/* Stats row */}
-          <div className="grid grid-cols-3 gap-2 mt-4">
+          <div className="grid grid-cols-4 gap-1.5 mt-4">
             <div className="bg-white/5 rounded-xl p-2 border border-yellow-400/20">
-              <p className="text-2xl font-extrabold text-yellow-400">{result.matchPercent}%</p>
-              <p className="text-[10px] text-white/60 uppercase">Accurate</p>
+              <p className="text-xl font-extrabold text-yellow-400">{result.matchPercent}%</p>
+              <p className="text-[9px] text-white/60 uppercase">Accurate</p>
             </div>
             <div className="bg-white/5 rounded-xl p-2 border border-red-400/20">
-              <p className="text-2xl font-extrabold text-red-400">{result.redFlagMeter}</p>
-              <p className="text-[10px] text-white/60 uppercase">Red Flag 🚩</p>
+              <p className="text-xl font-extrabold text-red-400">{result.redFlagMeter}</p>
+              <p className="text-[9px] text-white/60 uppercase">Red Flag 🚩</p>
             </div>
             <div className="bg-white/5 rounded-xl p-2 border border-green-400/20">
-              <p className="text-2xl font-extrabold text-green-400">{result.datingScore}</p>
-              <p className="text-[10px] text-white/60 uppercase">Dating Game</p>
+              <p className="text-xl font-extrabold text-green-400">{result.datingScore}</p>
+              <p className="text-[9px] text-white/60 uppercase">Dating</p>
+            </div>
+            <div className="bg-white/5 rounded-xl p-2 border border-purple-400/20">
+              <p className="text-xl font-extrabold text-purple-400">{result.rizzScore}</p>
+              <p className="text-[9px] text-white/60 uppercase">Rizz 💅</p>
             </div>
           </div>
         </div>
@@ -382,6 +386,18 @@ function ResultScreen({ result, resultRef, onShare, onDownload, onReset }) {
         <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-xl p-4 border border-red-400/30">
           <p className="text-xs font-bold text-red-300 uppercase tracking-wider mb-1">🚩 Tera Biggest Red Flag</p>
           <p className="text-white text-sm">{result.redFlag}</p>
+        </div>
+
+        {/* Biggest L (loss) */}
+        <div className="bg-gradient-to-r from-slate-500/20 to-zinc-500/20 rounded-xl p-4 border border-slate-400/30">
+          <p className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">💀 Tera Biggest L</p>
+          <p className="text-white text-sm">{result.biggestL}</p>
+        </div>
+
+        {/* DM habit */}
+        <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl p-4 border border-cyan-400/30">
+          <p className="text-xs font-bold text-cyan-300 uppercase tracking-wider mb-1">📱 Tera DM Game</p>
+          <p className="text-white text-sm">{result.dmHabit}</p>
         </div>
         
         {/* Stats grid */}
@@ -433,6 +449,23 @@ function ResultScreen({ result, resultRef, onShare, onDownload, onReset }) {
           </p>
           <p className="text-white text-sm">{result.futureMatch}</p>
         </div>
+
+        {/* Compatibility */}
+        {result.compatibility && result.compatibility.length > 0 && (
+          <div className="bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 rounded-xl p-4 border border-pink-400/30">
+            <p className="text-xs font-bold text-pink-300 uppercase tracking-wider mb-2">
+              🔥 Tujhe Match Kareyga
+            </p>
+            <div className="grid grid-cols-1 gap-2">
+              {result.compatibility.map((c, i) => (
+                <div key={i} className="bg-white/5 rounded-lg p-2 flex items-center gap-2">
+                  <span className="text-xl">{c.emoji}</span>
+                  <span className="text-white text-xs font-medium">{c.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         
         {/* Future prediction */}
         <div className="bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 rounded-xl p-4 border border-violet-400/30">
