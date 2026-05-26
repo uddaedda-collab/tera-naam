@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  font-family: 'Poppins', 'Anek Devanagari', sans-serif;
+  background: #0a0118;
+  color: #ffffff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Gradient backgrounds */
+.bg-magic {
+  background: 
+    radial-gradient(ellipse at top, rgba(251, 191, 36, 0.15), transparent 50%),
+    radial-gradient(ellipse at bottom, rgba(236, 72, 153, 0.12), transparent 50%),
+    radial-gradient(ellipse at left, rgba(139, 92, 246, 0.1), transparent 50%),
+    linear-gradient(180deg, #0a0118 0%, #1a0b2e 50%, #0a0118 100%);
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b, #ec4899, #f59e0b, #fbbf24);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+.text-gradient-saffron {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #dc2626);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glow-button {
+  background: linear-gradient(135deg, #f59e0b, #dc2626);
+  box-shadow: 0 10px 40px rgba(245, 158, 11, 0.5);
+  transition: all 0.3s;
+}
+
+.glow-button:hover {
+  box-shadow: 0 15px 60px rgba(245, 158, 11, 0.8);
+  transform: translateY(-3px);
+}
+
+.glow-button:active {
+  transform: translateY(-1px);
+}
+
+/* Result card styling */
+.result-bg {
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(251, 191, 36, 0.15), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15), transparent 50%),
+    linear-gradient(135deg, #1a0b2e, #0a0118);
+}
+
+/* Confetti emoji animation */
+.confetti {
+  animation: float 4s ease-in-out infinite;
+}
+
+::selection {
+  background: rgba(251, 191, 36, 0.3);
+  color: white;
+}
+
+/* Mobile-first input */
+input[type="text"] {
+  font-size: 16px; /* prevents iOS zoom */
+}
+
+/* Hide scrollbars on result cards */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
