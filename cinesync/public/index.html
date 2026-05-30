@@ -2,14 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#0b0014" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0011" />
   <meta name="description" content="CineSync - Watch movies together in perfect sync, even when you're miles apart." />
   <title>CineSync · Watch together, apart ❤️</title>
+
+  <!-- PWA: makes the app installable on phone home screens -->
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- iOS (iPhone/iPad) home-screen app support -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="CineSync" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AC%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
@@ -28,7 +40,12 @@
         <span class="brand__logo">🎬</span>
         <span class="brand__name">Cine<span class="brand__accent">Sync</span></span>
       </div>
-      <div class="nav__tag">made for two ❤️</div>
+      <div class="nav__right">
+        <button id="btnInstall" class="btn btn--install" hidden>
+          <span class="btn__icon">📲</span> Install app
+        </button>
+        <div class="nav__tag">made for two ❤️</div>
+      </div>
     </header>
 
     <section class="hero">
@@ -302,11 +319,29 @@
     </div>
   </div>
 
+  <!-- iOS "Add to Home Screen" instructions -->
+  <div id="iosInstall" class="modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="modal__card modal__card--name">
+      <button class="modal__x" id="iosInstallClose">✕</button>
+      <div class="invite__emoji">📲</div>
+      <h2 class="modal__title">Install on iPhone</h2>
+      <p class="hint">CineSync ko home screen pe app jaisa lagane ke liye:</p>
+      <ol class="ios-steps">
+        <li>Safari ke neeche <b>Share</b> button dabao <span class="ios-ico">⎙</span></li>
+        <li>Neeche scroll karke <b>"Add to Home Screen"</b> chuno <span class="ios-ico">➕</span></li>
+        <li>Upar <b>"Add"</b> dabao — bas! 🎬</li>
+      </ol>
+      <p class="hint">Phir CineSync tumhare home screen pe ek app ki tarah khulega. ❤️</p>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="/js/player.js"></script>
   <script src="/js/chat.js"></script>
   <script src="/js/app.js"></script>
+  <script src="/js/pwa.js"></script>
 </body>
 </html>

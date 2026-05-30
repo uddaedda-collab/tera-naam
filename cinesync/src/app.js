@@ -117,6 +117,20 @@ function createServer(options = {}) {
   app.use('/uploads', express.static(UPLOAD_DIR, {
     setHeaders: (res) => res.setHeader('Accept-Ranges', 'bytes'),
   }));
+
+  // PWA: service worker must be served from root scope with no long-term cache,
+  // and the manifest with the correct content type.
+  app.get('/sw.js', (req, res) => {
+    res.set('Service-Worker-Allowed', '/');
+    res.set('Cache-Control', 'no-cache');
+    res.type('application/javascript');
+    res.sendFile(path.join(PUBLIC_DIR, 'sw.js'));
+  });
+  app.get('/manifest.webmanifest', (req, res) => {
+    res.type('application/manifest+json');
+    res.sendFile(path.join(PUBLIC_DIR, 'manifest.webmanifest'));
+  });
+
   app.use(express.static(PUBLIC_DIR));
 
   // Room deep-link -> serve the SPA shell.

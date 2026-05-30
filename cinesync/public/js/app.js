@@ -38,6 +38,8 @@
       setTimeout(() => { t.hidden = true; }, 250);
     }, 2600);
   }
+  // Expose toast so the PWA install module can use it.
+  window.CineSyncToast = toast;
 
   /* ---------- View routing ---------- */
   function showView(name) {
@@ -568,6 +570,10 @@
     const deep = getRoomFromPath();
     if (deep) {
       enterRoom(deep);
+    } else if (new URLSearchParams(location.search).get('action') === 'create') {
+      // Launched from the installed-app shortcut ("Create a Cinema").
+      showView('landing');
+      createRoom();
     } else {
       showView('landing');
     }

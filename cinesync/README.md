@@ -20,6 +20,7 @@ aur floating animated emoji reactions. (Concept: Rave / Teleparty / CozyTwo jais
 | ❤️ **Animated reactions** | Floating emoji jo video ke upar udte hain, quick-reaction bar + full emoji picker |
 | 🎛️ **Full controls** | Custom seekbar, volume, mute, 0.5x–2x speed, fullscreen, keyboard shortcuts |
 | 📱 **Responsive** | Mobile + desktop, premium aurora UI, glassmorphism |
+| 📲 **Installable app (PWA)** | Phone home screen pe app icon, full-screen launch, offline shell — Android + iPhone |
 | 👑 **Smart host** | Pehla member host banta hai; host nikle to auto-promote |
 
 ---
