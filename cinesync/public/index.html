@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0b0014" />
+  <meta name="description" content="CineSync - Watch movies together in perfect sync, even when you're miles apart." />
+  <title>CineSync · Watch together, apart ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AC%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Animated aurora background -->
+  <div class="aurora">
+    <span class="aurora__blob aurora__blob--1"></span>
+    <span class="aurora__blob aurora__blob--2"></span>
+    <span class="aurora__blob aurora__blob--3"></span>
+    <div class="aurora__grain"></div>
+  </div>
+
+  <!-- ============ LANDING VIEW ============ -->
+  <main id="landing" class="view view--active">
+    <header class="nav">
+      <div class="brand">
+        <span class="brand__logo">🎬</span>
+        <span class="brand__name">Cine<span class="brand__accent">Sync</span></span>
+      </div>
+      <div class="nav__tag">made for two ❤️</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero__content">
+        <div class="hero__pill">
+          <span class="pulse-dot"></span> Live sync · Zero "3-2-1 play!"
+        </div>
+        <h1 class="hero__title">
+          Watch movies <span class="grad-text">together</span>,<br />
+          even when you're <span class="grad-text grad-text--2">apart</span>.
+        </h1>
+        <p class="hero__sub">
+          Create a private cinema, share one link, and press play in perfect sync.
+          YouTube, Google Drive, your gallery — all in HD, with live chat and floating
+          emoji love. 💕
+        </p>
+
+        <div class="hero__actions">
+          <button id="btnCreate" class="btn btn--primary btn--lg">
+            <span class="btn__icon">🍿</span> Create a Cinema
+          </button>
+          <button id="btnShowJoin" class="btn btn--ghost btn--lg">
+            <span class="btn__icon">🔗</span> Join with a code
+          </button>
+        </div>
+
+        <!-- Join inline form -->
+        <form id="joinForm" class="join-form" hidden>
+          <input id="joinCode" class="input input--code" type="text"
+            maxlength="6" placeholder="ROOM CODE" autocomplete="off" spellcheck="false" />
+          <button class="btn btn--primary" type="submit">Enter ➜</button>
+        </form>
+
+        <div class="hero__features">
+          <div class="feat"><span>⚡</span> Frame-tight sync</div>
+          <div class="feat"><span>🔍</span> Zoom &amp; pan player</div>
+          <div class="feat"><span>💬</span> Live chat &amp; reactions</div>
+          <div class="feat"><span>🎞️</span> HD up to 4K</div>
+        </div>
+      </div>
+
+      <div class="hero__art">
+        <div class="device">
+          <div class="device__bar">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="device__screen">
+            <div class="device__play">▶</div>
+            <div class="device__hearts">
+              <span>❤️</span><span>😍</span><span>🍿</span><span>✨</span>
+            </div>
+          </div>
+          <div class="device__chat">
+            <div class="bubble bubble--them">miss you 🥺</div>
+            <div class="bubble bubble--me">press play, jaan ❤️</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="landing-foot">
+      <span>CineSync</span> · built with ❤️ for long-distance love
+    </footer>
+  </main>
+
+  <!-- ============ ROOM VIEW ============ -->
+  <main id="room" class="view view--room">
+    <header class="room-bar">
+      <div class="room-bar__left">
+        <button id="btnHome" class="icon-btn" title="Leave">‹</button>
+        <span class="brand__logo brand__logo--sm">🎬</span>
+        <div class="room-bar__meta">
+          <div class="room-bar__title" id="roomTitle">Movie Night</div>
+          <div class="room-bar__code">Room <b id="roomCodeLabel">––––––</b></div>
+        </div>
+      </div>
+      <div class="room-bar__right">
+        <div class="members" id="membersStrip"></div>
+        <button id="btnInvite" class="btn btn--invite">
+          <span class="btn__icon">🔗</span> Invite
+        </button>
+      </div>
+    </header>
+
+    <div class="stage">
+      <!-- Player column -->
+      <section class="player-col">
+        <div id="playerShell" class="player-shell" data-empty="true">
+          <!-- Empty state -->
+          <div id="playerEmpty" class="player-empty">
+            <div class="player-empty__icon">🎬</div>
+            <h3>Pick something to watch</h3>
+            <p>Paste a YouTube / Google Drive link, a direct video URL, or upload from your gallery.</p>
+            <button id="btnAddMediaEmpty" class="btn btn--primary">Add a video</button>
+          </div>
+
+          <!-- Media mounts here -->
+          <div id="mediaMount" class="media-mount">
+            <video id="htmlVideo" class="media-el" playsinline hidden></video>
+            <div id="ytMount" class="media-el" hidden></div>
+            <iframe id="driveFrame" class="media-el" hidden
+              allow="autoplay; encrypted-media; fullscreen" allowfullscreen
+              referrerpolicy="no-referrer"></iframe>
+          </div>
+
+          <!-- Buffer / loading -->
+          <div id="playerLoader" class="player-loader" hidden>
+            <div class="spinner"></div>
+          </div>
+
+          <!-- Floating emoji reactions land here -->
+          <div id="reactionLayer" class="reaction-layer"></div>
+
+          <!-- Custom control bar -->
+          <div id="controls" class="controls" hidden>
+            <div class="controls__seek">
+              <input id="seekBar" class="seek" type="range" min="0" max="1000" value="0" step="1" />
+              <div class="seek__buffered" id="seekBuffered"></div>
+            </div>
+            <div class="controls__row">
+              <button id="btnPlay" class="ctrl-btn" title="Play/Pause">▶</button>
+              <button id="btnBack" class="ctrl-btn" title="-10s">⏪</button>
+              <button id="btnFwd" class="ctrl-btn" title="+10s">⏩</button>
+              <div class="time"><span id="curTime">0:00</span> / <span id="durTime">0:00</span></div>
+
+              <div class="controls__spacer"></div>
+
+              <div class="vol">
+                <button id="btnMute" class="ctrl-btn" title="Mute">🔊</button>
+                <input id="volBar" class="vol__bar" type="range" min="0" max="100" value="100" />
+              </div>
+
+              <!-- Zoom controls -->
+              <div class="zoom">
+                <button id="btnZoomOut" class="ctrl-btn" title="Zoom out">➖</button>
+                <span id="zoomLabel" class="zoom__label">100%</span>
+                <button id="btnZoomIn" class="ctrl-btn" title="Zoom in">➕</button>
+                <button id="btnZoomReset" class="ctrl-btn" title="Reset zoom">⟲</button>
+              </div>
+
+              <select id="rateSelect" class="rate" title="Playback speed">
+                <option value="0.5">0.5×</option>
+                <option value="0.75">0.75×</option>
+                <option value="1" selected>1×</option>
+                <option value="1.25">1.25×</option>
+                <option value="1.5">1.5×</option>
+                <option value="2">2×</option>
+              </select>
+
+              <button id="btnChangeMedia" class="ctrl-btn" title="Change video">🎞️</button>
+              <button id="btnFullscreen" class="ctrl-btn" title="Fullscreen">⛶</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sync status bar -->
+        <div class="syncbar">
+          <div class="syncbar__left">
+            <span id="syncDot" class="sync-dot"></span>
+            <span id="syncText">Connecting…</span>
+          </div>
+          <div class="syncbar__right">
+            <button id="btnResync" class="chip">↻ Resync</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chat column -->
+      <aside class="chat-col">
+        <div class="chat-head">
+          <h3>💬 Chat</h3>
+          <span class="chat-head__count" id="onlineCount">0 online</span>
+        </div>
+        <div id="chatLog" class="chat-log"></div>
+        <div id="typingHint" class="typing-hint" hidden></div>
+
+        <!-- Quick reactions -->
+        <div class="reaction-bar" id="reactionBar">
+          <button data-emoji="❤️">❤️</button>
+          <button data-emoji="😂">😂</button>
+          <button data-emoji="😍">😍</button>
+          <button data-emoji="🔥">🔥</button>
+          <button data-emoji="😮">😮</button>
+          <button data-emoji="🥺">🥺</button>
+          <button data-emoji="👏">👏</button>
+          <button data-emoji="🍿">🍿</button>
+        </div>
+
+        <form id="chatForm" class="chat-form">
+          <button type="button" id="btnEmoji" class="icon-btn icon-btn--emoji">😊</button>
+          <input id="chatInput" class="chat-input" type="text"
+            placeholder="Say something sweet…" autocomplete="off" maxlength="1000" />
+          <button type="submit" class="icon-btn icon-btn--send">➤</button>
+
+          <!-- Emoji picker -->
+          <div id="emojiPicker" class="emoji-picker" hidden></div>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ============ ADD MEDIA MODAL ============ -->
+  <div id="mediaModal" class="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__card">
+      <button class="modal__x" data-close>✕</button>
+      <h2 class="modal__title">🎞️ Add a video</h2>
+
+      <div class="tabs" id="mediaTabs">
+        <button class="tab tab--active" data-tab="link">🔗 Link</button>
+        <button class="tab" data-tab="upload">📁 Gallery</button>
+      </div>
+
+      <!-- Link tab -->
+      <div class="tab-pane tab-pane--active" data-pane="link">
+        <p class="hint">Paste a <b>YouTube</b>, <b>Google Drive</b>, or <b>direct video</b> link.</p>
+        <input id="mediaUrl" class="input" type="text"
+          placeholder="https://youtu.be/…  or  drive.google.com/file/d/…" autocomplete="off" />
+        <div id="resolveMsg" class="resolve-msg" hidden></div>
+        <button id="btnLoadLink" class="btn btn--primary btn--block">Load video</button>
+        <div class="source-chips">
+          <span>✅ YouTube</span><span>✅ Google Drive</span><span>✅ MP4/WebM</span><span>✅ HLS (.m3u8)</span>
+        </div>
+      </div>
+
+      <!-- Upload tab -->
+      <div class="tab-pane" data-pane="upload">
+        <p class="hint">Upload a video from your device. Stays in this room only.</p>
+        <label class="dropzone" id="dropzone">
+          <input id="fileInput" type="file" accept="video/*" hidden />
+          <div class="dropzone__icon">📁</div>
+          <div class="dropzone__text">Tap to choose a video<br /><small>MP4, WebM, MKV, MOV…</small></div>
+        </label>
+        <div id="uploadProgress" class="upload-progress" hidden>
+          <div class="upload-progress__bar"><span id="uploadBar"></span></div>
+          <div id="uploadPct" class="upload-progress__pct">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INVITE MODAL ============ -->
+  <div id="inviteModal" class="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__card modal__card--invite">
+      <button class="modal__x" data-close>✕</button>
+      <div class="invite__emoji">💌</div>
+      <h2 class="modal__title">Invite your person</h2>
+      <p class="hint">Share this link. When they open it, you'll be watching together.</p>
+      <div class="invite__link">
+        <input id="inviteLink" class="input" readonly />
+        <button id="btnCopyLink" class="btn btn--primary">Copy</button>
+      </div>
+      <div class="invite__code">
+        Room code: <b id="inviteCode">––––––</b>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- Name prompt modal -->
+  <div id="nameModal" class="modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="modal__card modal__card--name">
+      <div class="invite__emoji">👋</div>
+      <h2 class="modal__title">What should we call you?</h2>
+      <input id="nameInput" class="input" maxlength="40" placeholder="Your name…" />
+      <button id="btnSaveName" class="btn btn--primary btn--block">Enter the cinema ➜</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="/js/player.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
