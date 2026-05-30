@@ -1,0 +1,37 @@
+{
+  "name": "cinesync",
+  "version": "1.0.0",
+  "description": "CineSync - Watch movies together in perfect sync, even when you are apart. A premium synchronized watch-party app for long-distance couples.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "test": "jest --runInBand --forceExit"
+  },
+  "keywords": [
+    "watch-party",
+    "sync",
+    "movies",
+    "long-distance",
+    "socket.io",
+    "rave"
+  ],
+  "author": "CineSync",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "multer": "^2.1.1",
+    "nanoid": "^3.3.7",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "socket.io-client": "^4.7.5",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 15000
+  }
+}

@@ -1,0 +1,14 @@
+# CineSync ko free online host karne ke liye Render.com Blueprint.
+# Render.com par "New + -> Blueprint" karke yeh repo choose karna -
+# baaki sab automatic ho jayega. (Settings yahan se khud bhar jayengi.)
+services:
+  - type: web
+    name: cinesync
+    runtime: node
+    rootDir: cinesync
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
